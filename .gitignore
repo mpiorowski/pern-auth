@@ -1,5 +1,5 @@
 # postgres database
-./docker/pgdata
+docker/pgdata
 
 # Logs
 logs
