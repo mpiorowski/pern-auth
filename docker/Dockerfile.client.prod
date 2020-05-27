@@ -1,0 +1,20 @@
+# Stage 1 - Create a builder container
+FROM node:13-alpine as builder
+
+WORKDIR /usr/src/app/
+
+COPY package.json .
+COPY tsconfig.json .
+COPY craco.config.js .
+
+COPY src src
+COPY public public
+
+RUN npm install
+RUN npm run build
+
+# Stage 2 - Create a downsized production container
+FROM nginx:1.17-alpine as production
+
+
+COPY --from=builder /usr/src/app/build /usr/share/nginx/html

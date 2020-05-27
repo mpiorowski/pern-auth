@@ -1,3 +1,6 @@
+# postgres database
+./docker/pgdata
+
 # Logs
 logs
 *.log

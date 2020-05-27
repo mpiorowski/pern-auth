@@ -1,0 +1,49 @@
+# Use postgres/example user/password credentials
+version: '3.6'
+
+services:
+
+  db:
+    container_name: google-map-db
+    build:
+      dockerfile: Dockerfile.db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: zaq1@WSX
+      POSTGRES_DB: server
+      PGDATA: /data/pgdata
+    volumes:
+      - ./pgdata:/data/pgdata
+    restart: on-failure
+
+  server:
+    container_name: google-map-server
+    build:
+      context: ../server
+      dockerfile: ../docker/Dockerfile.server.prod
+    environment:
+      - "NODE_ENV=production"
+    depends_on: 
+      - db
+    restart: on-failure
+    command: sh -c "echo 'starting server' && npm run migrate && node dist/index.js"
+
+  client:
+    container_name: google-map-client
+    build:
+      context: ../client
+      dockerfile: ../docker/Dockerfile.client.prod
+      target: production
+    environment:
+      - "NODE_ENV=production"
+    volumes:
+      - ../docker/nginx.prod.conf:/etc/nginx/conf.d/default.conf
+      # - /etc/letsencrypt:/etc/letsencrypt
+    ports:
+      - "3000:3000"
+      # - "443:443"
+    depends_on: 
+      - db
+    restart: on-failure    
+    command: sh -c "echo 'starting client' && nginx -g 'daemon off;'"

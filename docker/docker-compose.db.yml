@@ -1,0 +1,20 @@
+# Use postgres/example user/password credentials
+version: '3.6'
+
+services:
+
+  db:
+    container_name: google-map-db
+    build:
+      context: ./
+      dockerfile: Dockerfile.db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: zaq1@WSX
+      POSTGRES_DB: server
+      PGDATA: /data/pgdata
+    volumes:
+        - ./pgdata:/data/pgdata
+    ports: 
+        - "5432:5432"
