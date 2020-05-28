@@ -1,7 +1,6 @@
-const env = process.env.NODE_ENV || "development";
-
 // knex setting
+import { env } from "./app-config";
 import knex from "knex";
-import connection from "../knexfile";
+import connection from "../../knexfile";
 const configOptions = connection[env];
 export = knex(configOptions);
