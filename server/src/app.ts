@@ -6,9 +6,7 @@ import authRouter from "./services/auth/auth-api";
 
 const app = express();
 app.use(
-  cors({
-    origin: "http://localhost:9001",
-  })
+  cors()
 );
 app.use(express.json());
 

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Layout, Menu, Breadcrumb, Spin } from "antd";
+import React, { useState, useEffect } from "react";
+import { Layout, Menu, Breadcrumb, Spin, Dropdown } from "antd";
 import "./App.less";
 import {
   Switch,
@@ -10,8 +10,11 @@ import {
 } from "react-router-dom";
 import Homecomponent from "./components/home/Homecomponent";
 import ForumComponent from "./components/forum/ForumComponent";
-import { LoadingOutlined } from "@ant-design/icons";
+import { LoadingOutlined, PhoneOutlined, LogoutOutlined } from "@ant-design/icons";
 import AuthComponent from "./auth/AuthComponent";
+import { apiRequest } from "./services/api-request";
+import { ACCESS_TOKEN } from "./config/app-parameters";
+import AppHeader from "./AppHeader";
 
 interface PrivateRoute {
   component: React.FC;
@@ -20,8 +23,35 @@ interface PrivateRoute {
 
 const App = () => {
   const [isAuth, setIsAuth] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  const checkAuth = () => {
+    setLoading(true);
+    apiRequest({
+      url: "/api/auth/user",
+      method: "GET",
+    })
+      .then((user) => {
+        if (user.userName) {
+          setIsAuth(true);
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        // TODO: error
+        setLoading(false);
+      });
+  };
+
+  const logout = () => {
+    localStorage.setItem(ACCESS_TOKEN, "");
+    setIsAuth(false);
+  }
 
   if (loading) {
     const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
@@ -32,12 +62,8 @@ const App = () => {
     );
   }
 
-  const handleAuth = () => {
-    
-  }
-
   if (!isAuth && !loading) {
-    return <AuthComponent></AuthComponent>;
+    return <AuthComponent checkAuth={checkAuth}></AuthComponent>;
   }
 
   const PrivateRoute = ({ component, path, ...rest }: PrivateRoute) => {
@@ -53,17 +79,7 @@ const App = () => {
   return (
     <div className="App">
       <Layout className="layout">
-        <Layout.Header>
-          <div className="logo" />
-          <Menu theme="dark" mode="horizontal">
-            <Menu.Item key="/home">
-              <NavLink to="/home">HOME</NavLink>
-            </Menu.Item>
-            <Menu.Item key="/forum">
-              <NavLink to="/forum">FORUM</NavLink>
-            </Menu.Item>
-          </Menu>
-        </Layout.Header>
+        <AppHeader logout={logout}></AppHeader>
         <Layout.Content style={{ padding: "0 50px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>

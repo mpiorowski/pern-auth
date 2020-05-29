@@ -2,21 +2,28 @@ import React from "react";
 import { Input, Checkbox, Button, Form } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import "./AuthComponent.less";
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink, Redirect, useLocation } from "react-router-dom";
 import { Store } from "antd/lib/form/interface";
-import { serviceLogIn } from "./AuthServices";
+import { serviceLogIn } from "./AuthApi";
 import { ACCESS_TOKEN } from "../config/app-parameters";
+import { useHistory } from "react-router-dom";
 
-interface Props {}
+interface Props {
+  checkAuth: () => void
+}
 
 const LoginComponent = (props: Props) => {
+  let history = useHistory();
   const onFinish = (credentials: Store) => {
     console.log("Received values of form: ", credentials);
     serviceLogIn(credentials)
       .then((response: { authToken: string }) => {
         if (response.authToken) {
           localStorage.setItem(ACCESS_TOKEN, response.authToken);
-          return <Redirect to="/" />;
+          props.checkAuth();
+          console.log("HERE")
+        } else {
+          // TODO: - error
         }
       })
       .catch((error) => {
@@ -33,7 +40,7 @@ const LoginComponent = (props: Props) => {
       size={"large"}
     >
       <Form.Item
-        name="username"
+        name="userName"
         rules={[{ required: true, message: "Please input your Username!" }]}
       >
         <Input
@@ -42,7 +49,7 @@ const LoginComponent = (props: Props) => {
         />
       </Form.Item>
       <Form.Item
-        name="password"
+        name="userPassword"
         rules={[{ required: true, message: "Please input your Password!" }]}
       >
         <Input

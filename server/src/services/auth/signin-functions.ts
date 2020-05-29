@@ -30,11 +30,7 @@ export const signin = (req: Request, res: Response) => {
         //   authorities.push("ROLE_" + roles[i].name.toUpperCase());
         // }
         return res.status(200).send({
-          uuid: user[0].uuid,
-          userName: user[0].userName,
-          userEmail: user[0].userEmail,
-          userRole: user[0].userRole,
-          accessToken: token,
+          authToken: token,
         });
       });
     } else {

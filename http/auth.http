@@ -9,11 +9,6 @@ content-type: application/json
 
 ###
 
-POST http://localhost:9000/api/auth/user HTTP/1.1
+GET http://localhost:9000/api/auth/user HTTP/1.1
 content-type: application/json
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiZGI2NjQyMDktMTMwOC00NWYyLTg4ZWMtOGZmN2EwMjA5ZjQzIiwiaWF0IjoxNTkwNzU3Mzk4LCJleHAiOjE1OTA4NDM3OTh9.5oi2i76LvVKstRVwQRNpvs-cS00KAJMPxztXm8LM31E
-
-{
-    "userName": "ww",
-    "userPassword": "ww"
-}
+Authorization: Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiOTU0YzY4ZWItMDBmZC00YzQ3LWI3MzItNGQ5YjNjMzA2ZmRlIiwiaWF0IjoxNTkwNzYyMTIyLCJleHAiOjE1OTA4NDg1MjJ9.EJpg4HBeCW3yb7ff7nlQhKGDxSkZ6H90EIgUPX-ymcA

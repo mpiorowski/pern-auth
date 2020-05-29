@@ -4,7 +4,9 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import LoginComponent from "./LoginComponent";
 import "./AuthComponent.less";
 
-interface Props {}
+interface Props {
+  checkAuth: () => void
+}
 
 const AuthComponent = (props: Props) => {
   return (
@@ -13,27 +15,9 @@ const AuthComponent = (props: Props) => {
         <Route
           exact
           path="/login"
-          render={(props) => <LoginComponent {...props} />}
-        />
-        <Route
-          exact
-          path="/register"
-          render={(props) => <LoginComponent {...props} />}
-        />
-        <Route
-          exact
-          path="/register/code"
-          render={(props) => <LoginComponent {...props} />}
-        />
-        <Route
-          exact
-          path="/recover"
-          render={(props) => <LoginComponent {...props} />}
-        />
-        <Route
-          exact
-          path="/recover/code"
-          render={(props) => <LoginComponent {...props} />}
+          render={(props2) => (
+            <LoginComponent checkAuth={props.checkAuth} {...props2} />
+          )}
         />
         <Route path="*" render={() => <Redirect to={"/login"} />} />
       </Switch>

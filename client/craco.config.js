@@ -20,8 +20,8 @@ module.exports = {
 
   devServer: {
     proxy: {
-      "/api": "http://localhost:9000/api",
-      "/socket": "http://localhost:9000/socket",
+      "/api": "http://localhost:9000",
+      "/socket": "http://localhost:9000",
     },
   },
 

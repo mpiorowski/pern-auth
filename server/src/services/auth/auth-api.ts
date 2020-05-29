@@ -6,14 +6,17 @@ import { SysUsers, getUserByUuid } from "../sys-users/users-api";
 const authRouter = express.Router();
 authRouter.use(express.json());
 
-authRouter.post("/api/auth/user", (req, res) => {
+authRouter.get("/api/auth/user", (req, res) => {
   try {
-    if (!req.get("x-access-token")) {
+    if (
+      !req.get("Authorization") ||
+      req.get("Authorization")?.slice(0, 8) != "Bearer: "
+    ) {
       return res.status(500).send({
         message: "Token missing",
       });
     }
-    const token: string = req.get("x-access-token")!;
+    const token: string = req.get("Authorization")!.slice(8);
     if (!verifyToken(token)) {
       return res.status(401).send({
         message: "Unauthorized!",
@@ -26,19 +29,23 @@ authRouter.post("/api/auth/user", (req, res) => {
       });
     }
     getUserByUuid((undecodedToken as { uuid: string }).uuid).then((user) => {
-      res.send(user);
+      res.send({
+        uuid: user[0].uuid,
+        userName: user[0].userName,
+        userEmail: user[0].userEmail,
+        userRole: user[0].userRole,
+      });
     });
   } catch (error) {
     console.error(error);
+    return res.status(500).send({
+      message: "Something went wrong",
+    });
   }
 });
 
 authRouter.post("/api/auth/signin", (req, res) => {
   console.log("signin request");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "x-access-token, Origin, Content-Type, Accept"
-  );
   signin(req, res);
 });
 
