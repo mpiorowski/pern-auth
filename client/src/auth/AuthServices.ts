@@ -1,4 +1,4 @@
-import { apiRequest } from "../services/ApiRequest";
+import { apiRequest } from "../services/api-request";
 import { Store } from "antd/lib/form/interface";
 
 export const serviceLogIn = (credentials: Store) => {

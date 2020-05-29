@@ -1,14 +1,31 @@
 import { port } from "./config/app-config";
-
 import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import authRouter from "./services/auth/auth-api";
+
 const app = express();
+app.use(
+  cors({
+    origin: "http://localhost:9001",
+  })
+);
+app.use(express.json());
+
+// parse requests of content-type - application/json
+// app.use(bodyParser.json());
+
+// routes
+app.use(authRouter);
 
 // define a route handler for the default home page
-app.get("/", (req: any, res: any) => {
-  res.json("test");
+app.get("/", (req, res) => {
+  res.send("welcome home");
 });
+
 
 // start the Express server
 app.listen(port, () => {
-  console.log(`server started at http://localhost:${port}`);
+  console.log("server started at http://localhost:" + port);
 });
+

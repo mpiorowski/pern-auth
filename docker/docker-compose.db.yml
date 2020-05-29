@@ -3,7 +3,7 @@ version: '3.6'
 
 services:
 
-  db:
+  google-map-db:
     container_name: google-map-db
     build:
       context: ./
@@ -17,4 +17,4 @@ services:
     volumes:
         - ./pgdata:/data/pgdata
     ports: 
-        - "5432:5432"
+        - "5444:5432"

@@ -1,0 +1,19 @@
+POST http://localhost:9000/api/auth/signin HTTP/1.1
+content-type: application/json
+
+{
+    "userName": "admin",
+    "userPassword": "pass"
+}
+
+
+###
+
+POST http://localhost:9000/api/auth/user HTTP/1.1
+content-type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiZGI2NjQyMDktMTMwOC00NWYyLTg4ZWMtOGZmN2EwMjA5ZjQzIiwiaWF0IjoxNTkwNzU3Mzk4LCJleHAiOjE1OTA4NDM3OTh9.5oi2i76LvVKstRVwQRNpvs-cS00KAJMPxztXm8LM31E
+
+{
+    "userName": "ww",
+    "userPassword": "ww"
+}

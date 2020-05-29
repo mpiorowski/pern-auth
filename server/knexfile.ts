@@ -5,7 +5,7 @@ const connection: { [k: string]: any } = {
     client: "pg",
     connection: {
       host: "localhost",
-      port: 5432,
+      port: 5444,
       database: "server",
       user: "admin",
       password: "zaq1@WSX",
