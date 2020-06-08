@@ -1,5 +1,6 @@
 # config
 src/config/app-config.ts
+knexfile.ts
 
 # Logs
 logs
