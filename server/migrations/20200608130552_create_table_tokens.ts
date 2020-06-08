@@ -4,7 +4,7 @@ export async function up(knex: Knex): Promise<any> {
   return knex.schema.createTable("sys_tokens", function (table) {
     table.increments().primary();
     table.text("uuid").unique().defaultTo(knex.raw("uuid_generate_v4()"));
-    table.string("token").notNullable();
+    table.json("data").notNullable();
     table.string("type").notNullable();
     table.string("email").notNullable();
     table.timestamp("expire").notNullable();

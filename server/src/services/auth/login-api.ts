@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import express from "express";
 import jwt from "jsonwebtoken";
 import { secret, tokenExpirationTime } from "../../config/app-config";
-import { getUserByUserNameOrEmail } from "../users/users-db";
+import { getUserByUserNameOrEmail } from "../../db/users-db";
 
 const loginRouter = express.Router();
 loginRouter.use(express.json());

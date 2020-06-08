@@ -1,5 +1,5 @@
 import express from "express";
-import { getUserByUuid } from "../users/users-db";
+import { getUserByUuid } from "../../db/users-db";
 import { verifyToken } from "./token-functions";
 import { bearer } from "../../config/app-config";
 

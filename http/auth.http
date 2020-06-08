@@ -6,18 +6,26 @@ content-type: application/json
     "userPassword": "pass"
 }
 
-
 ###
 
 POST http://localhost:9000/api/auth/register HTTP/1.1
 content-type: application/json
 
 {
-    "userName": "matqqwqweeqwewqweqwe",
-    "userEmail": "mateusqwqweeqwezpiqweorowski12qwe@gmail.com",
+    "userName": "mat",
+    "userEmail": "mateuszpiorowski@gmail.com",
     "userPassword": "pass"
 }
 
+###
+
+POST http://localhost:9000/api/auth/register/code HTTP/1.1
+content-type: application/json
+
+{
+    "userEmail": "mateuszpiorowski@gmail.com",
+    "code": "646958"
+}
 
 ###
 
