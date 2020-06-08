@@ -1,7 +1,7 @@
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { Store } from "antd/lib/form/interface";
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { Register } from "../../../interfaces/AuthInterface";
 import { serviceRegister } from "./AuthApi";
@@ -12,20 +12,23 @@ interface Props {
 }
 
 const RegisterComponent = (props: Props) => {
+  //
+  const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const history = useHistory();
-  //
   const onFinish = (credentials: Store) => {
+    setLoading(true);
     const data: Register = {
       userName: credentials.userName,
       userEmail: credentials.userEmail,
       userPassword: credentials.userPassword,
     };
-    console.log("Received values of form: ", credentials);
     serviceRegister(data)
-      .then((response) => {
-        console.log(response);
-        history.push("/login");
+      .then(() => {
+        history.push({
+          pathname: "/register/code",
+          state: { userEmail: credentials.userEmail },
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -108,7 +111,12 @@ const RegisterComponent = (props: Props) => {
         />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
+        <Button
+          type="primary"
+          htmlType="submit"
+          className="login-form-button"
+          loading={loading}
+        >
           Dalej
         </Button>
         Masz już konto?

@@ -16,3 +16,11 @@ export const serviceRegister = (credentials: Store) => {
     body: JSON.stringify(credentials),
   });
 };
+
+export const serviceRegisterCode = (credentials: Store) => {
+  return apiRequest({
+    url: "/api/auth/register/code",
+    method: "POST",
+    body: JSON.stringify(credentials),
+  });
+};

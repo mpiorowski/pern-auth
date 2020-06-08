@@ -5,11 +5,11 @@ import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import "./App.less";
 import AppHeader from "./AppHeader";
 import AppSider from "./AppSider";
-import AuthComponent from "./auth/AuthComponent";
 import ForumComponent from "./components/forum/ForumComponent";
 import Homecomponent from "./components/home/Homecomponent";
 import { ACCESS_TOKEN } from "./config/app-parameters";
 import { apiRequest } from "./services/api-request";
+import AuthRouter from "./auth/AuthRouter";
 
 interface PrivateRoute {
   component: React.FC;
@@ -58,7 +58,7 @@ const App = () => {
   }
 
   if (!isAuth && !loading) {
-    return <AuthComponent checkAuth={checkAuth}></AuthComponent>;
+    return <AuthRouter checkAuth={checkAuth}></AuthRouter>;
   }
 
   const PrivateRoute = ({ component, path, ...rest }: PrivateRoute) => {

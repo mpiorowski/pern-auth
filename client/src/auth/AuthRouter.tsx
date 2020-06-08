@@ -5,12 +5,13 @@ import bearLogo from "../img/bear-logo-grey.png";
 import "./AuthStyles.less";
 import LoginComponent from "./LoginComponent";
 import RegisterComponent from "./RegisterComponent";
+import RegisterCodeComponent from "./RegisterCodeComponent";
 
 interface Props {
   checkAuth: () => void;
 }
 
-const AuthComponent = (props: Props) => {
+const AuthRouter = (props: Props) => {
   return (
     <Layout className="auth-main">
       <div className="auth-header">
@@ -32,10 +33,18 @@ const AuthComponent = (props: Props) => {
             <RegisterComponent checkAuth={props.checkAuth} {...props} />
           )}
         />
+        />
+        <Route
+          exact
+          path="/register/code"
+          render={() => (
+            <RegisterCodeComponent checkAuth={props.checkAuth} {...props} />
+          )}
+        />
         <Route path="*" render={() => <Redirect to={"/login"} />} />
       </Switch>
     </Layout>
   );
 };
 
-export default AuthComponent;
+export default AuthRouter;

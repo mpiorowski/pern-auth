@@ -1,7 +1,7 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { Store } from "antd/lib/form/interface";
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ACCESS_TOKEN } from "../config/app-parameters";
 import { serviceLogIn } from "./AuthApi";
@@ -12,8 +12,10 @@ interface Props {
 }
 
 const LoginComponent = (props: Props) => {
+  //
+  const [loading, setLoading] = useState(false);
   const onFinish = (credentials: Store) => {
-    console.log("Received values of form: ", credentials);
+    setLoading(true);
     serviceLogIn(credentials)
       .then((response: { authToken: string }) => {
         if (response.authToken) {
@@ -59,7 +61,7 @@ const LoginComponent = (props: Props) => {
         <NavLink to={"/recover"}>Nie pamiętasz hasła?</NavLink>
       </div>
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
+        <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
           Zaloguj się
         </Button>
         Lub{" "}
