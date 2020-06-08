@@ -8,6 +8,8 @@ import {
 } from "../users/users-db";
 import { ROLE_USER, saltRounds } from "../../config/app-config";
 
+var nodemailer = require("nodemailer");
+
 const registerRouter = express.Router();
 registerRouter.use(express.json());
 
@@ -21,12 +23,12 @@ registerRouter.post("/api/auth/register", async (req, res) => {
       req.body.userPassword
     ) {
       const checkUserName = await getUserByUserName(req.body.userName);
-      if (checkUserName.length > 1) {
-        return res.status(404).send({ message: "Username already taken" });
+      if (checkUserName.length > 0) {
+        return res.status(404).send({ message: "User name already taken" });
       }
       const checkUserEmail = await getUserByUserEmail(req.body.userEmail);
-      if (checkUserEmail.length > 1) {
-        return res.status(404).send({ message: "Useremail already taken" });
+      if (checkUserEmail.length > 0) {
+        return res.status(404).send({ message: "User email already taken" });
       }
       const pass = await bcrypt.hash(req.body.userPassword, saltRounds);
       const user: SysUsers = {
@@ -35,12 +37,35 @@ registerRouter.post("/api/auth/register", async (req, res) => {
         userPassword: pass,
         userRole: ROLE_USER,
       };
-      console.log("here");
       const created: SysUsers[] = await createUser(user);
       if (created.length > 0) {
+        var transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: "piorowskiapp@gmail.com",
+            pass: "matpioapp",
+          },
+        });
+
+        var mailOptions = {
+          from: "youremail@gmail.com",
+          to: "mateuszpiorowski@gmail.com",
+          subject: "Sending Email using Node.js",
+          text: "That was easy!",
+        };
+
+        transporter.sendMail(mailOptions, function (error: any, info: any) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("Email sent: " + info.response);
+          }
+        });
         return res.status(200).send({ message: "User added successfully" });
       }
-      return res.status(500).send({ message: "User not added" });
+      return res
+        .status(500)
+        .send({ message: "User not added, spmething went wrong" });
     } else {
       throw { message: "Bad request" };
     }

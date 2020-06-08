@@ -1,14 +1,14 @@
 import * as Knex from "knex";
 import bcrypt from "bcrypt";
-const saltRounds = 10;
+import { saltRounds } from "../src/config/app-config";
 
 export async function seed(knex: Knex): Promise<any> {
-  return knex("sys-users")
+  return knex("sys_users")
     .del()
     .then(() => {
       const hash = bcrypt.hashSync("pass", saltRounds);
       // Inserts seed entries
-      return knex("sys-users").insert([
+      return knex("sys_users").insert([
         {
           userName: "admin",
           userEmail: "admin@gmail.com",

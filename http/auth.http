@@ -13,8 +13,8 @@ POST http://localhost:9000/api/auth/register HTTP/1.1
 content-type: application/json
 
 {
-    "userName": "mat",
-    "userEmail": "mateuszpiorowski@gmail.com",
+    "userName": "matqw",
+    "userEmail": "mateuszpiorowski12@gmail.com",
     "userPassword": "pass"
 }
 
