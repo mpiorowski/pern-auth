@@ -1,20 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Layout, Menu, Breadcrumb, Spin, Dropdown } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Breadcrumb, Layout, Spin } from "antd";
+import React, { useEffect, useState } from "react";
+import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import "./App.less";
-import {
-  Switch,
-  Route,
-  Redirect,
-  useLocation,
-  NavLink,
-} from "react-router-dom";
-import Homecomponent from "./components/home/Homecomponent";
-import ForumComponent from "./components/forum/ForumComponent";
-import { LoadingOutlined, PhoneOutlined, LogoutOutlined } from "@ant-design/icons";
-import AuthComponent from "./auth/AuthComponent";
-import { apiRequest } from "./services/api-request";
-import { ACCESS_TOKEN } from "./config/app-parameters";
 import AppHeader from "./AppHeader";
+import AppSider from "./AppSider";
+import AuthComponent from "./auth/AuthComponent";
+import ForumComponent from "./components/forum/ForumComponent";
+import Homecomponent from "./components/home/Homecomponent";
+import { ACCESS_TOKEN } from "./config/app-parameters";
+import { apiRequest } from "./services/api-request";
 
 interface PrivateRoute {
   component: React.FC;
@@ -51,7 +46,7 @@ const App = () => {
   const logout = () => {
     localStorage.setItem(ACCESS_TOKEN, "");
     setIsAuth(false);
-  }
+  };
 
   if (loading) {
     const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
@@ -77,26 +72,34 @@ const App = () => {
   };
 
   return (
-    <div className="App">
-      <Layout className="layout">
-        <AppHeader logout={logout}></AppHeader>
-        <Layout.Content style={{ padding: "0 50px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-          </Breadcrumb>
-          <Switch>
-            <PrivateRoute path="/home" component={Homecomponent}></PrivateRoute>
-            <PrivateRoute
-              path="/forum"
-              component={ForumComponent}
-            ></PrivateRoute>
-            <Route
-              path="*"
-              render={() => <Redirect to="/home"></Redirect>}
-            ></Route>
-          </Switch>
-        </Layout.Content>
+    <div className="app">
+      <Layout style={{ minHeight: "100vh" }}>
+        <Layout>
+          <AppSider></AppSider>
+          <Layout>
+            <AppHeader logout={logout}></AppHeader>
+            <Layout.Content style={{ padding: "0 50px" }}>
+              <Breadcrumb style={{ margin: "16px 0" }}>
+                <Breadcrumb.Item>Home</Breadcrumb.Item>
+                <Breadcrumb.Item>List</Breadcrumb.Item>
+              </Breadcrumb>
+              <Switch>
+                <PrivateRoute
+                  path="/home"
+                  component={Homecomponent}
+                ></PrivateRoute>
+                <PrivateRoute
+                  path="/forum"
+                  component={ForumComponent}
+                ></PrivateRoute>
+                <Route
+                  path="*"
+                  render={() => <Redirect to="/home"></Redirect>}
+                ></Route>
+              </Switch>
+            </Layout.Content>
+          </Layout>
+        </Layout>
       </Layout>
     </div>
   );

@@ -3,7 +3,15 @@ import { Store } from "antd/lib/form/interface";
 
 export const serviceLogIn = (credentials: Store) => {
   return apiRequest({
-    url: "/api/auth/signin",
+    url: "/api/auth/login",
+    method: "POST",
+    body: JSON.stringify(credentials),
+  });
+};
+
+export const serviceRegister = (credentials: Store) => {
+  return apiRequest({
+    url: "/api/auth/register",
     method: "POST",
     body: JSON.stringify(credentials),
   });

@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN } from "../config/app-parameters";
+import { ACCESS_TOKEN, BEARER } from "../config/app-parameters";
 
 export const apiRequest = async (options) => {
   const headers = new Headers({
@@ -8,7 +8,7 @@ export const apiRequest = async (options) => {
   if (localStorage.getItem(ACCESS_TOKEN)) {
     headers.append(
       "Authorization",
-      "Bearer: " + localStorage.getItem(ACCESS_TOKEN)
+      BEARER + " " + localStorage.getItem(ACCESS_TOKEN)
     );
   }
 
@@ -19,6 +19,7 @@ export const apiRequest = async (options) => {
   if (response.ok) {
     return response.json();
   } else {
-    return Promise.reject(response);
+    const error = await response.json();
+    return Promise.reject(error);
   }
 };

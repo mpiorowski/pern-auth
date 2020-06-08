@@ -3,9 +3,13 @@
 @gray-1: #ffffff;
 @gray-2: #fafafa;
 @gray-3: #f5f5f5;
-@gray-4: #e8e8e8;
+@gray-4: #f0f0f0;
 @gray-5: #d9d9d9;
 @gray-6: #bfbfbf;
+@gray-7: #8c8c8c;
+@gray-8: #595959;
+
+@sider-width: 60px;
 
 // Make sure that all variables initial value must be unique otherwise changing one color will affect the other.
 //@main-color: #739b42;
@@ -23,27 +27,27 @@
 //@primary-1: fade(@primary-color, 15%);
 //@heading-color: white;
 @text-color: black;
-@text-color-secondary: #595959;
-@layout-body-background: #ffffff;
+@text-color-secondary: @gray-8;
+@layout-body-background: @gray-1;
 //@component-background: @main-background;
 //@body-background: @main-background;
 //
 ////sider
-@layout-sider-background: #f5f5f5;
+@layout-sider-background: @gray-3;
 //
 ////header
-@layout-header-background: #f5f5f5;
+@layout-header-background: @gray-3;
 @layout-header-height: 50px;
 //
 ////menu
-@menu-collapsed-width: 60px;
-@menu-item-active-bg: white;
-@menu-bg: #f5f5f5;
+@menu-collapsed-width: @sider-width;
+@menu-item-active-bg: @gray-1;
+@menu-bg: @gray-3;
 
 //
 ////button
-@btn-primary-bg: #595959;
-@btn-default-bg: #f5f5f5;
+@btn-primary-bg: @gray-8;
+@btn-default-bg: @gray-3;
 //
 ////table
 //@background-color-light: rgba(255, 255, 255, 0.02);;

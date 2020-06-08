@@ -1,8 +1,20 @@
-POST http://localhost:9000/api/auth/signin HTTP/1.1
+POST http://localhost:9000/api/auth/login HTTP/1.1
 content-type: application/json
 
 {
     "userName": "admin",
+    "userPassword": "pass"
+}
+
+
+###
+
+POST http://localhost:9000/api/auth/register HTTP/1.1
+content-type: application/json
+
+{
+    "userName": "mat",
+    "userEmail": "mateuszpiorowski@gmail.com",
     "userPassword": "pass"
 }
 

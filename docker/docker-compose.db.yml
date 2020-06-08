@@ -3,8 +3,8 @@ version: '3.6'
 
 services:
 
-  google-map-db:
-    container_name: google-map-db
+  pern-auth-db:
+    container_name: pern-auth-db
     build:
       context: ./
       dockerfile: Dockerfile.db

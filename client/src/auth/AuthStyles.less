@@ -1,0 +1,82 @@
+@import "../config/variables.less";
+
+.auth-main {
+  background-color: #f0f0f0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+  // padding-bottom: 10%;
+
+  padding-top: 10%;
+
+  .ant-input-affix-wrapper-lg {
+    border-radius: 4px !important;
+  }
+
+  .auth-header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    .auth-header-logo {
+      height: 100px;
+    }
+
+    .auth-header-text {
+      font-size: 56px;
+      color: @text-color-secondary;
+    }
+  }
+
+  button {
+    border-radius: 4px !important;
+    height: 36px;
+    margin-bottom: 6px;
+    padding: 4px 15px;
+  }
+
+  //login form
+  .login-form {
+    // margin-top: 15%;
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .login-form-button {
+    width: 100%;
+  }
+
+  .login-input {
+    & > .ant-input {
+      height: 40px;
+      font-size: 16px;
+      width: 100%;
+    }
+  }
+
+  .login-form-forgot {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    color: @primary-color !important;
+    line-height: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+
+  .ant-form-item-has-success.ant-form-item-has-feedback .ant-form-item-children-icon {
+    color: @primary-color !important;
+  }
+
+  .ant-form-item-has-error.ant-form-item-has-feedback .ant-form-item-children-icon {
+    color: #9f4142 !important;
+  }
+
+  // .ant-form-item-children-icon {
+  //   color: @primary-color !important;
+  // }
+  // .ant-form-item-has-error {
+  //   color: red!;
+  // }
+}

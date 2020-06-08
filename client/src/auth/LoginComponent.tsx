@@ -1,19 +1,17 @@
-import React from "react";
-import { Input, Checkbox, Button, Form } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import "./AuthComponent.less";
-import { NavLink, Redirect, useLocation } from "react-router-dom";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Form, Input } from "antd";
 import { Store } from "antd/lib/form/interface";
-import { serviceLogIn } from "./AuthApi";
+import React from "react";
+import { NavLink } from "react-router-dom";
 import { ACCESS_TOKEN } from "../config/app-parameters";
-import { useHistory } from "react-router-dom";
+import { serviceLogIn } from "./AuthApi";
+import "./AuthStyles.less";
 
 interface Props {
-  checkAuth: () => void
+  checkAuth: () => void;
 }
 
 const LoginComponent = (props: Props) => {
-  let history = useHistory();
   const onFinish = (credentials: Store) => {
     console.log("Received values of form: ", credentials);
     serviceLogIn(credentials)
@@ -21,7 +19,6 @@ const LoginComponent = (props: Props) => {
         if (response.authToken) {
           localStorage.setItem(ACCESS_TOKEN, response.authToken);
           props.checkAuth();
-          console.log("HERE")
         } else {
           // TODO: - error
         }
@@ -40,12 +37,12 @@ const LoginComponent = (props: Props) => {
       size={"large"}
     >
       <Form.Item
-        name="userName"
+        name="userNameOrEmail"
         rules={[{ required: true, message: "Please input your Username!" }]}
       >
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Username"
+          placeholder="Nazwa użytkownika lub email"
         />
       </Form.Item>
       <Form.Item

@@ -1,22 +1,23 @@
 import express from "express";
+import { getUserByUuid } from "../users/users-db";
 import { verifyToken } from "./token-functions";
-import { signin } from "./signin-functions";
-import { SysUsers, getUserByUuid } from "../sys-users/users-api";
+import { bearer } from "../../config/app-config";
 
 const authRouter = express.Router();
 authRouter.use(express.json());
 
 authRouter.get("/api/auth/user", (req, res) => {
+  console.log(Date() + " :auth request");
   try {
     if (
       !req.get("Authorization") ||
-      req.get("Authorization")?.slice(0, 8) != "Bearer: "
+      req.get("Authorization")?.slice(0, 6) != bearer
     ) {
       return res.status(500).send({
         message: "Token missing",
       });
     }
-    const token: string = req.get("Authorization")!.slice(8);
+    const token: string = req.get("Authorization")!.slice(7);
     if (!verifyToken(token)) {
       return res.status(401).send({
         message: "Unauthorized!",
@@ -42,11 +43,6 @@ authRouter.get("/api/auth/user", (req, res) => {
       message: "Something went wrong",
     });
   }
-});
-
-authRouter.post("/api/auth/signin", (req, res) => {
-  console.log("signin request");
-  signin(req, res);
 });
 
 export = authRouter;

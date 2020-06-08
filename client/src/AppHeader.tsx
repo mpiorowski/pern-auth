@@ -26,7 +26,7 @@ const AppHeader = (props: Props) => {
 
   const RightHeaderMenu = () => {
     return (
-      <Menu className={"header-dropdown-menu"}>
+      <Menu>
         <Menu.Item>
           <NavLink to="/contact">
             <PhoneOutlined /> Kontakt
@@ -42,7 +42,7 @@ const AppHeader = (props: Props) => {
     );
   };
   return (
-    <Layout.Header className={"app-header"}>
+    <Layout.Header className="app-header">
       <div className={"header-menu left"}>
         <LeftHeaderMenu></LeftHeaderMenu>
       </div>
@@ -51,7 +51,7 @@ const AppHeader = (props: Props) => {
           overlay={RightHeaderMenu}
           placement="bottomRight"
           trigger={["click"]}
-          className={""}
+          className={"header-dropdown"}
         >
           <div className={"header-dropdown"}>
             <img src={avatar} alt="" className={"avatar"} />

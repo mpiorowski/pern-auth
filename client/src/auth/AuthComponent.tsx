@@ -1,22 +1,35 @@
-import React from "react";
 import { Layout } from "antd";
-import { Route, Redirect, Switch } from "react-router-dom";
+import React from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
+import bearLogo from "../img/bear-logo-grey.png";
+import "./AuthStyles.less";
 import LoginComponent from "./LoginComponent";
-import "./AuthComponent.less";
+import RegisterComponent from "./RegisterComponent";
 
 interface Props {
-  checkAuth: () => void
+  checkAuth: () => void;
 }
 
 const AuthComponent = (props: Props) => {
   return (
     <Layout className="auth-main">
+      <div className="auth-header">
+        <img className="auth-header-logo" src={bearLogo} alt="" />
+        <span className="auth-header-text">Codeito</span>
+      </div>
       <Switch>
         <Route
           exact
           path="/login"
-          render={(props2) => (
-            <LoginComponent checkAuth={props.checkAuth} {...props2} />
+          render={() => (
+            <LoginComponent checkAuth={props.checkAuth} {...props} />
+          )}
+        />
+        <Route
+          exact
+          path="/register"
+          render={() => (
+            <RegisterComponent checkAuth={props.checkAuth} {...props} />
           )}
         />
         <Route path="*" render={() => <Redirect to={"/login"} />} />

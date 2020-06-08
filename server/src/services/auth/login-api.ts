@@ -1,15 +1,19 @@
 import bcrypt from "bcrypt";
+import express from "express";
 import jwt from "jsonwebtoken";
 import { secret, tokenExpirationTime } from "../../config/app-config";
-import { getUserByUserName } from "../sys-users/users-api";
-import { Request, Response } from "express";
+import { getUserByUserNameOrEmail } from "../users/users-db";
 
-export const signin = (req: Request, res: Response) => {
+const loginRouter = express.Router();
+loginRouter.use(express.json());
+
+loginRouter.post("/api/auth/login", (req, res) => {
+  console.log(Date() + " :login request");
   try {
-    if (req.body && req.body.userName && req.body.userPassword) {
-      getUserByUserName(req.body.userName).then((user) => {
+    if (req.body && req.body.userNameOrEmail && req.body.userPassword) {
+      getUserByUserNameOrEmail(req.body.userNameOrEmail).then((user) => {
         if (user.length < 1) {
-          return res.status(404).send({ message: "User Not found." });
+          return res.status(404).send({ message: "User Not found" });
         }
         const passwordIsValid = bcrypt.compareSync(
           req.body.userPassword,
@@ -18,7 +22,7 @@ export const signin = (req: Request, res: Response) => {
 
         if (!passwordIsValid) {
           return res.status(401).send({
-            message: "Invalid Password!",
+            message: "Invalid Password",
           });
         }
         const token = jwt.sign({ uuid: user[0].uuid }, secret, {
@@ -34,9 +38,12 @@ export const signin = (req: Request, res: Response) => {
         });
       });
     } else {
-      throw { message: "Bad request." };
+      throw { message: "Bad request" };
     }
   } catch (error) {
+    console.error(error);
     return res.status(500).send({ message: error.message });
   }
-};
+});
+
+export = loginRouter;
