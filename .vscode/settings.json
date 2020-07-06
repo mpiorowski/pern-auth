@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "server",
+            "driver": "PostgreSQL",
+            "name": "pern-auth",
+            "password": "zaq1@WSX",
+            "port": 5444,
+            "previewLimit": 50,
+            "server": "localhost",
+            "username": "admin"
+        }
+    ]
+}

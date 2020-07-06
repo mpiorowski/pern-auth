@@ -24,7 +24,8 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "eslint": "eslint --init"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -46,9 +47,18 @@
   },
   "devDependencies": {
     "@craco/craco": "^5.6.4",
+    "@typescript-eslint/eslint-plugin": "^3.5.0",
+    "@typescript-eslint/parser": "^3.5.0",
     "clean-webpack-plugin": "^3.0.0",
     "craco-less": "^1.16.0",
     "dayjs": "^1.8.27",
+    "eslint": "^7.4.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react-hooks": "^4.0.5",
     "webpack-bundle-analyzer": "^3.8.0"
   }
 }

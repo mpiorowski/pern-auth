@@ -51,14 +51,14 @@ const App = () => {
   if (loading) {
     const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
     return (
-      <div className={"app-loading"}>
-        <Spin indicator={antIcon} className={"spin"} />
+      <div className="app-loading">
+        <Spin indicator={antIcon} className="spin" />
       </div>
     );
   }
 
   if (!isAuth && !loading) {
-    return <AuthRouter checkAuth={checkAuth}></AuthRouter>;
+    return <AuthRouter checkAuth={checkAuth} />;
   }
 
   const PrivateRoute = ({ component, path, ...rest }: PrivateRoute) => {
@@ -75,27 +75,18 @@ const App = () => {
     <div className="app">
       <Layout style={{ minHeight: "100vh" }}>
         <Layout>
-          <AppSider></AppSider>
+          <AppSider />
           <Layout>
-            <AppHeader logout={logout}></AppHeader>
+            <AppHeader logout={logout} />
             <Layout.Content style={{ padding: "0 50px" }}>
               <Breadcrumb style={{ margin: "16px 0" }}>
                 <Breadcrumb.Item>Home</Breadcrumb.Item>
                 <Breadcrumb.Item>List</Breadcrumb.Item>
               </Breadcrumb>
               <Switch>
-                <PrivateRoute
-                  path="/home"
-                  component={Homecomponent}
-                ></PrivateRoute>
-                <PrivateRoute
-                  path="/forum"
-                  component={ForumComponent}
-                ></PrivateRoute>
-                <Route
-                  path="*"
-                  render={() => <Redirect to="/home"></Redirect>}
-                ></Route>
+                <PrivateRoute path="/home" component={Homecomponent} />
+                <PrivateRoute path="/forum" component={ForumComponent} />
+                <Route path="*" render={() => <Redirect to="/home" />} />
               </Switch>
             </Layout.Content>
           </Layout>
