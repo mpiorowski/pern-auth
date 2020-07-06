@@ -1,6 +1,12 @@
 import { ACCESS_TOKEN, BEARER } from "../config/app-parameters";
 
-export const apiRequest = async (options) => {
+interface Options {
+  url: string,
+  method: string,
+  body?: string
+}
+
+export const apiRequest = async (options: Options): Promise<any> => {
   const headers = new Headers({
     "Content-Type": "application/json",
   });
@@ -16,6 +22,7 @@ export const apiRequest = async (options) => {
   options = Object.assign({}, defaults, options);
 
   const response = await fetch(options.url, options);
+  // return response;
   if (response.ok) {
     return response.json();
   } else {

@@ -16,7 +16,7 @@ interface PrivateRoute {
   path: string;
 }
 
-const App = () => {
+const App: React.FC = () => {
   const [isAuth, setIsAuth] = useState(false);
   const [loading, setLoading] = useState(true);
   const location = useLocation();

@@ -8,7 +8,7 @@ interface Props {
   logout: () => void;
 }
 
-const AppHeader = (props: Props) => {
+const AppHeader: React.FC<Props> = (props: Props) => {
   const location = useLocation();
 
   const LeftHeaderMenu = () => (
