@@ -1,13 +1,5 @@
-import React from 'react';
+import React from "react";
 
-interface Props {
-
-}
-
-const ForumComponent = (props: Props) => (
-  <div>
-    Forum
-  </div>
-);
+const ForumComponent = () => <div>ATTRIBUTES</div>;
 
 export default ForumComponent;

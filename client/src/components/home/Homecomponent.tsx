@@ -1,15 +1,7 @@
-import React from 'react'
+import React from "react";
 
-interface Props {
-    
-}
+const Homecomponent = () => {
+  return <div>HOME</div>;
+};
 
-const Homecomponent = (props: Props) => {
-    return (
-        <div>
-            HOME
-        </div>
-    )
-}
-
-export default Homecomponent
+export default Homecomponent;

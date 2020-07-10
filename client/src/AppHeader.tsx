@@ -16,8 +16,11 @@ const AppHeader: React.FC<Props> = (props: Props) => {
       <Menu.Item key="/home">
         <NavLink to="/home">HOME</NavLink>
       </Menu.Item>
+      <Menu.Item key="/product">
+        <NavLink to="/product">PRODUCT</NavLink>
+      </Menu.Item>
       <Menu.Item key="/forum">
-        <NavLink to="/forum">FORUM</NavLink>
+        <NavLink to="/forum">ATRRIBUTES</NavLink>
       </Menu.Item>
     </Menu>
   );

@@ -17,7 +17,16 @@
   text-align: left;
 }
 
+.app-content {
+  background-color: @gray-2;
+}
+
 .app-sider {
+
+  .ant-menu-item-selected {
+    background-color: rgba(24, 17, 17, 0.2) !important;
+  }
+
   &.ant-layout-sider-collapsed {
     flex: 0 0 @sider-width !important;
     max-width: @sider-width !important;
@@ -29,15 +38,21 @@
     }
   }
   .logo {
-    height: 32px;
+    height: 50px;
+    display: flex;
+    margin: auto;
+    padding: 6px;
+  }
+  .ant-layout-sider-trigger {
+    color: black;
     background: rgba(24, 17, 17, 0.2);
-    margin: 16px;
   }
   width: 30px;
 }
 
 .app-header {
-  // padding: 0;
+  padding-left: 50px;
+  padding-right: 30px;
 
   .header-menu {
     display: inline-block;

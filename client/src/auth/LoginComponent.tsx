@@ -39,16 +39,17 @@ const LoginComponent = (props: Props) => {
     >
       <Form.Item
         name="userNameOrEmail"
-        rules={[{ required: true, message: "Please input your Username!" }]}
+        rules={[{ required: true, message: "Please input your Username or Email" }]}
       >
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Nazwa użytkownika lub email"
+          // placeholder="Nazwa użytkownika lub email"
+          placeholder="Username or email"
         />
       </Form.Item>
       <Form.Item
         name="userPassword"
-        rules={[{ required: true, message: "Please input your Password!" }]}
+        rules={[{ required: true, message: "Please input your Password" }]}
       >
         <Input
           prefix={<LockOutlined className="site-form-item-icon" />}
@@ -57,7 +58,7 @@ const LoginComponent = (props: Props) => {
         />
       </Form.Item>
       <div className="login-form-forgot">
-        <NavLink to={"/recover"}>Nie pamiętasz hasła?</NavLink>
+        <NavLink to={"/recover"}>Forgot passoword?</NavLink>
       </div>
       <Form.Item>
         <Button
@@ -66,11 +67,11 @@ const LoginComponent = (props: Props) => {
           className="login-form-button"
           loading={loading}
         >
-          Zaloguj się
+          Log in
         </Button>
-        Lub{" "}
+        Or{" "}
         <NavLink to="/register">
-          <b>załóż nowe konto.</b>
+          <b>register now.</b>
         </NavLink>
       </Form.Item>
     </Form>

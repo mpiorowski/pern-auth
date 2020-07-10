@@ -50,11 +50,11 @@ const RegisterComponent = (props: Props) => {
         hasFeedback
         // validateStatus={""}
         validateTrigger="onBlur"
-        rules={[{ required: true, message: "Please input your Username!" }]}
+        rules={[{ required: true, message: "Please input your Username" }]}
       >
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Nazwa użytkownika"
+          placeholder="Username"
         />
       </Form.Item>
       <Form.Item
@@ -63,8 +63,8 @@ const RegisterComponent = (props: Props) => {
         validateTrigger="onBlur"
         // validateStatus={""}
         rules={[
-          { required: true, message: "Please input your Password!" },
-          { type: "email", message: "Niepoprawny format maila" },
+          { required: true, message: "Please input your Email" },
+          { type: "email", message: "Incorrect Email input" },
         ]}
       >
         <Input
@@ -77,12 +77,12 @@ const RegisterComponent = (props: Props) => {
         name="userPassword"
         hasFeedback
         validateTrigger="onBlur"
-        rules={[{ required: true, message: "Please input your Password!" }]}
+        rules={[{ required: true, message: "Please input your Password" }]}
       >
         <Input.Password
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
-          placeholder="Hasło"
+          placeholder="Password"
         />
       </Form.Item>
       <Form.Item
@@ -91,7 +91,7 @@ const RegisterComponent = (props: Props) => {
         hasFeedback
         validateTrigger="onBlur"
         rules={[
-          { required: true, message: "Please input your Password!" },
+          { required: true, message: "Please input your Password" },
           ({ getFieldValue }) => ({
             validator(rule, value) {
               if (!value || getFieldValue("userPassword") === value) {
@@ -117,11 +117,11 @@ const RegisterComponent = (props: Props) => {
           className="login-form-button"
           loading={loading}
         >
-          Dalej
+          Continue
         </Button>
-        Masz już konto?
+        Already have an account?
         <NavLink to="/login">
-          <b> Zaloguj się.</b>
+          <b> Log in.</b>
         </NavLink>
       </Form.Item>
     </Form>

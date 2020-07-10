@@ -3,9 +3,9 @@ import { Button, Form, Input } from "antd";
 import { Store } from "antd/lib/form/interface";
 import React, { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
+import { openMessage, openNotification } from "../services/notifications";
 import { serviceRegisterCode } from "./AuthApi";
 import "./AuthStyles.less";
-import { openNotification, openMessage } from "../services/notifications";
 
 interface Props {
   checkAuth: () => void;
@@ -40,7 +40,11 @@ const RegisterCodeComponent: React.FC<Props> = () => {
         .catch((error) => {
           console.log(error);
           if (error.code == 2) {
-            openNotification("Incorrect code", "Submited code is incorrect. Please check again.", "error");
+            openNotification(
+              "Incorrect code",
+              "Submited code is incorrect. Please check again.",
+              "error"
+            );
             setLoading(false);
           }
         });
@@ -60,11 +64,11 @@ const RegisterCodeComponent: React.FC<Props> = () => {
       <Form.Item
         name="code"
         validateTrigger="onBlur"
-        rules={[{ required: true, message: "Please input your Username!" }]}
+        rules={[{ required: true, message: "Please input your verification code" }]}
       >
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Kod weryfikacyjny"
+          placeholder="Verification code"
         />
       </Form.Item>
       <Form.Item>
@@ -74,11 +78,11 @@ const RegisterCodeComponent: React.FC<Props> = () => {
           className="login-form-button"
           loading={loading}
         >
-          Dalej
+          Continue
         </Button>
-        Masz już konto?
+        Already have an account?
         <NavLink to="/login">
-          <b> Zaloguj się.</b>
+          <b> Log in.</b>
         </NavLink>
       </Form.Item>
     </Form>

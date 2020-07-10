@@ -5,11 +5,12 @@ import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import "./App.less";
 import AppHeader from "./AppHeader";
 import AppSider from "./AppSider";
+import AuthRouter from "./auth/AuthRouter";
 import ForumComponent from "./components/forum/ForumComponent";
 import Homecomponent from "./components/home/Homecomponent";
 import { ACCESS_TOKEN } from "./config/app-parameters";
 import { apiRequest } from "./services/api-request";
-import AuthRouter from "./auth/AuthRouter";
+import Productcomponent from "./components/product/Productcomponent";
 
 interface PrivateRoute {
   component: React.FC;
@@ -78,7 +79,7 @@ const App: React.FC = () => {
           <AppSider />
           <Layout>
             <AppHeader logout={logout} />
-            <Layout.Content style={{ padding: "0 50px" }}>
+            <Layout.Content style={{ padding: "0 50px" }} className={"app-content"}>
               <Breadcrumb style={{ margin: "16px 0" }}>
                 <Breadcrumb.Item>Home</Breadcrumb.Item>
                 <Breadcrumb.Item>List</Breadcrumb.Item>
@@ -86,7 +87,8 @@ const App: React.FC = () => {
               <Switch>
                 <PrivateRoute path="/home" component={Homecomponent} />
                 <PrivateRoute path="/forum" component={ForumComponent} />
-                <Route path="*" render={() => <Redirect to="/home" />} />
+                <PrivateRoute path="/product" component={Productcomponent} />
+                <Route path="*" render={() => <Redirect to="/product" />} />
               </Switch>
             </Layout.Content>
           </Layout>
