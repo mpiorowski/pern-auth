@@ -14,7 +14,7 @@ const AppHeader: React.FC<Props> = (props: Props) => {
   const LeftHeaderMenu = () => (
     <Menu mode="horizontal" selectedKeys={[location.pathname]}>
       <Menu.Item key="/home">
-        <NavLink to="/home">HOME</NavLink>
+        <NavLink to="/home">CHARTS</NavLink>
       </Menu.Item>
       <Menu.Item key="/product">
         <NavLink to="/product">PRODUCT</NavLink>
@@ -29,13 +29,13 @@ const AppHeader: React.FC<Props> = (props: Props) => {
     <Menu>
       <Menu.Item>
         <NavLink to="/contact">
-          <PhoneOutlined /> Kontakt
+          <PhoneOutlined /> Contact
         </NavLink>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item onClick={props.logout}>
         <NavLink to="/login">
-          <LogoutOutlined /> Wyloguj się
+          <LogoutOutlined /> Log out
         </NavLink>
       </Menu.Item>
     </Menu>

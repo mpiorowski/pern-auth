@@ -13,7 +13,11 @@ loginRouter.post("/api/auth/login", (req, res) => {
     if (req.body && req.body.userNameOrEmail && req.body.userPassword) {
       getUserByUserNameOrEmail(req.body.userNameOrEmail).then((user) => {
         if (user.length < 1) {
-          return res.status(404).send({ message: "User Not found" });
+          return res.status(404).send({
+            header: "User Not found",
+            message: "Username or Email does not exist. Please check again.",
+            code: 1,
+          });
         }
         const passwordIsValid = bcrypt.compareSync(
           req.body.userPassword,
@@ -22,7 +26,9 @@ loginRouter.post("/api/auth/login", (req, res) => {
 
         if (!passwordIsValid) {
           return res.status(401).send({
-            message: "Invalid Password",
+            header: "Invalid Password",
+            message: "That password was incorrect. Please check again.",
+            code: 2,
           });
         }
         const token = jwt.sign({ uuid: user[0].uuid }, secret, {

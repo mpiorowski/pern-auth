@@ -6,6 +6,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import { Register } from "../../../interfaces/AuthInterface";
 import { serviceRegister } from "./AuthApi";
 import "./AuthStyles.less";
+import { openNotification } from "../services/notifications";
 
 interface Props {
   checkAuth: () => void;
@@ -31,6 +32,8 @@ const RegisterComponent = (props: Props) => {
         });
       })
       .catch((error) => {
+        openNotification(error.header, error.message, "error");
+        setLoading(false);
         console.error(error);
       });
   };

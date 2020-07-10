@@ -39,7 +39,7 @@ const RegisterCodeComponent: React.FC<Props> = () => {
         })
         .catch((error) => {
           console.log(error);
-          if (error.code == 2) {
+          if (error.code === 2) {
             openNotification(
               "Incorrect code",
               "Submited code is incorrect. Please check again.",

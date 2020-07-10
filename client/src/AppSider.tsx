@@ -31,7 +31,7 @@ const AppSider: React.FC = () => {
       className="app-sider"
     >
       <img className={"logo"} src={bearLogoGrey} alt="" />
-      <Menu defaultSelectedKeys={["1"]} mode="inline">
+      <Menu defaultSelectedKeys={["1"]} mode="inline" theme={"light"}>
         <Menu.Item key="1" icon={<PieChartOutlined />}>
           Option 1
         </Menu.Item>

@@ -34,11 +34,11 @@ registerRouter.post("/api/auth/register", async (req, res) => {
     }
     const checkUserName = await getUserByUserName(req.body.userName);
     if (checkUserName.length > 0) {
-      return res.status(404).send({ message: "User name already taken" });
+      return res.status(404).send({ header: "User name already taken", message: "The given User name is already taken. Please try another.", code: 1 });
     }
     const checkUserEmail = await getUserByUserEmail(req.body.userEmail);
     if (checkUserEmail.length > 0) {
-      return res.status(404).send({ message: "User email already taken" });
+      return res.status(404).send({ header: "Email already taken", message: "The given Email is already taken. Please try another.", code: 2 });
     }
 
     const pass = await bcrypt.hash(req.body.userPassword, saltRounds);
@@ -68,7 +68,7 @@ registerRouter.post("/api/auth/register", async (req, res) => {
       // send email with register code
       await sendEmail(
         user.userEmail,
-        "Kod weryfikacyjny",
+        "Verification code",
         registerCodeMessage(code)
       );
       return res

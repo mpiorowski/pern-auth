@@ -22,9 +22,11 @@
 }
 
 .app-sider {
-
+  .ant-menu-inline-collapsed > .ant-menu-item-selected {
+    border-right: 3px solid #5d8239 !important;
+  }
   .ant-menu-item-selected {
-    background-color: rgba(24, 17, 17, 0.2) !important;
+    background-color: @gray-2 !important;
   }
 
   &.ant-layout-sider-collapsed {

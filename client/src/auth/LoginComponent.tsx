@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { ACCESS_TOKEN } from "../config/app-parameters";
 import { serviceLogIn } from "./AuthApi";
 import "./AuthStyles.less";
+import { openNotification } from "../services/notifications";
 
 interface Props {
   checkAuth: () => void;
@@ -21,10 +22,12 @@ const LoginComponent = (props: Props) => {
           localStorage.setItem(ACCESS_TOKEN, response.authToken);
           props.checkAuth();
         } else {
-          // TODO: - error
+          openNotification("Something went wrong", "Please try again or wait some time.", "error");
         }
       })
       .catch((error) => {
+        openNotification(error.header, error.message, "error");
+        setLoading(false);
         console.error(error);
       });
   };
