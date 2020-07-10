@@ -10,5 +10,6 @@
             "server": "localhost",
             "username": "admin"
         }
-    ]
+    ],
+    "eslint.workingDirectories": [ "./client", "./server" ]
 }

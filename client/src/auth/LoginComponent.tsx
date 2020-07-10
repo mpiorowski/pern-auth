@@ -12,7 +12,6 @@ interface Props {
 }
 
 const LoginComponent = (props: Props) => {
-  //
   const [loading, setLoading] = useState(false);
   const onFinish = (credentials: Store) => {
     setLoading(true);
@@ -61,7 +60,12 @@ const LoginComponent = (props: Props) => {
         <NavLink to={"/recover"}>Nie pamiętasz hasła?</NavLink>
       </div>
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
+        <Button
+          type="primary"
+          htmlType="submit"
+          className="login-form-button"
+          loading={loading}
+        >
           Zaloguj się
         </Button>
         Lub{" "}
