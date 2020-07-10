@@ -5,19 +5,23 @@ import React, { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { serviceRegisterCode } from "./AuthApi";
 import "./AuthStyles.less";
+import { openNotification, openMessage } from "../services/notifications";
 
 interface Props {
   checkAuth: () => void;
 }
 
-const RegisterCodeComponent = (props: Props) => {
+const RegisterCodeComponent: React.FC<Props> = () => {
   //
   const [loading, setLoading] = useState(false);
+
   const [form] = Form.useForm();
   const history = useHistory();
+
   const onFinish = (code: Store) => {
     setLoading(true);
-    const userEmail: {} | null | undefined = history.location.state;
+    const userEmail: Record<string, unknown> | null | undefined =
+      history.location.state;
     if (
       userEmail !== null &&
       userEmail !== undefined &&
@@ -30,10 +34,15 @@ const RegisterCodeComponent = (props: Props) => {
       serviceRegisterCode(credentials)
         .then((response) => {
           console.log(response);
+          openMessage("User created", "success");
           history.push("/login");
         })
         .catch((error) => {
-          console.error(error);
+          console.log(error);
+          if (error.code == 2) {
+            openNotification("Incorrect code", "Submited code is incorrect. Please check again.", "error");
+            setLoading(false);
+          }
         });
     }
   };

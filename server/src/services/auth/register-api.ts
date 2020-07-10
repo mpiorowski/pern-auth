@@ -5,7 +5,7 @@ import {
   saltRounds,
   tokenExpirationTime,
 } from "../../config/app-config";
-import { sendMail } from "../../config/mail-config";
+import { sendEmail } from "../../config/mail-config";
 import { createAuthToken, Token, findTokenByEmail } from "../../db/tokens-db";
 import {
   getUserByUserEmail,
@@ -14,6 +14,7 @@ import {
   createUser,
 } from "../../db/users-db";
 import randomNumber from "random-number-csprng";
+import { registerCodeMessage } from "../../config/mail-messages";
 
 const registerRouter = express.Router();
 registerRouter.use(express.json());
@@ -63,7 +64,13 @@ registerRouter.post("/api/auth/register", async (req, res) => {
 
     const created: Token[] = await createAuthToken(token);
     if (created.length > 0) {
-      await sendMail(user.userEmail, "Kod weryfikacyjny", code.toString());
+
+      // send email with register code
+      await sendEmail(
+        user.userEmail,
+        "Kod weryfikacyjny",
+        registerCodeMessage(code)
+      );
       return res
         .status(200)
         .send({ message: "Verification code sent succesfully" });
@@ -84,11 +91,12 @@ registerRouter.post("/api/auth/register/code", async (req, res) => {
     }
     const token = await findTokenByEmail(req.body.userEmail);
     if (token.length < 0 && new Date(token[0].expire) <= new Date(Date.now())) {
-      return res.status(404).send({ message: "Token has expired" });
+      return res.status(404).send({ message: "Token has expired", code: 1 });
     }
     if (req.body.code != token[0].data.code) {
       return res.status(500).send({
         message: "Wrong verification code",
+        code: 2
       });
     }
     const checkUserName = await getUserByUserName(token[0].data.user.userName);
