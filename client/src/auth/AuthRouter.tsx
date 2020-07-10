@@ -23,22 +23,21 @@ const AuthRouter = (props: Props) => {
           exact
           path="/login"
           render={() => (
-            <LoginComponent checkAuth={props.checkAuth} {...props} />
+            <LoginComponent {...props} />
           )}
         />
         <Route
           exact
           path="/register"
           render={() => (
-            <RegisterComponent checkAuth={props.checkAuth} {...props} />
+            <RegisterComponent {...props} />
           )}
-        />
         />
         <Route
           exact
           path="/register/code"
           render={() => (
-            <RegisterCodeComponent checkAuth={props.checkAuth} {...props} />
+            <RegisterCodeComponent {...props} />
           )}
         />
         <Route path="*" render={() => <Redirect to={"/login"} />} />
