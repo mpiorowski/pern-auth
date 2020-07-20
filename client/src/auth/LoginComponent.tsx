@@ -7,6 +7,7 @@ import { ACCESS_TOKEN } from "../config/app-parameters";
 import { serviceLogIn } from "./AuthApi";
 import "./AuthStyles.less";
 import { openNotification } from "../services/notifications";
+import { LogIn } from "../../../interfaces/AuthInterface";
 
 interface Props {
   checkAuth: () => void;
@@ -16,13 +17,21 @@ const LoginComponent = (props: Props) => {
   const [loading, setLoading] = useState(false);
   const onFinish = (credentials: Store) => {
     setLoading(true);
-    serviceLogIn(credentials)
+    const data: LogIn = {
+      userNameOrEmail: credentials.userNameOrEmail,
+      userPassword: credentials.userPassword,
+    };
+    serviceLogIn(data)
       .then((response: { authToken: string }) => {
         if (response.authToken) {
           localStorage.setItem(ACCESS_TOKEN, response.authToken);
           props.checkAuth();
         } else {
-          openNotification("Something went wrong", "Please try again or wait some time.", "error");
+          openNotification(
+            "Something went wrong",
+            "Please try again or wait some time.",
+            "error"
+          );
         }
       })
       .catch((error) => {
@@ -40,9 +49,12 @@ const LoginComponent = (props: Props) => {
       onFinish={onFinish}
       size={"large"}
     >
+      <div style={{ height: 30 }}></div>
       <Form.Item
         name="userNameOrEmail"
-        rules={[{ required: true, message: "Please input your Username or Email" }]}
+        rules={[
+          { required: true, message: "Please input your Username or Email" },
+        ]}
       >
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}

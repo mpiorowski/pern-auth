@@ -11,7 +11,7 @@ interface Props {
   checkAuth: () => void;
 }
 
-const RegisterCodeComponent: React.FC<Props> = () => {
+const VerificationCodeComponent: React.FC<Props> = () => {
   //
   const [loading, setLoading] = useState(false);
 
@@ -89,4 +89,4 @@ const RegisterCodeComponent: React.FC<Props> = () => {
   );
 };
 
-export default RegisterCodeComponent;
+export default VerificationCodeComponent;

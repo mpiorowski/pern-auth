@@ -3,6 +3,7 @@ import express from "express";
 import { port } from "./config/app-config";
 import authRouter from "./services/auth/auth-api";
 import loginRouter from "./services/auth/login-api";
+import recoverRouter from "./services/auth/recover-api";
 import registerRouter from "./services/auth/register-api";
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(authRouter);
 app.use(loginRouter);
 app.use(registerRouter);
+app.use(recoverRouter);
 
 // define a route handler for the default home page
 app.get("/", (req, res) => {

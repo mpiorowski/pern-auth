@@ -3,3 +3,8 @@ export interface Register {
   userEmail: string;
   userPassword: string;
 }
+
+export interface LogIn {
+  userNameOrEmail: string;
+  userPassword: string;
+}

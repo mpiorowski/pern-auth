@@ -5,7 +5,8 @@ import bearLogo from "../img/bear-logo-grey.png";
 import "./AuthStyles.less";
 import LoginComponent from "./LoginComponent";
 import RegisterComponent from "./RegisterComponent";
-import RegisterCodeComponent from "./RegisterCodeComponent";
+import VerificationCodeComponent from "./VerificationCodeComponent";
+import RecoverComponent from "./RecoverComponent";
 
 interface Props {
   checkAuth: () => void;
@@ -22,23 +23,27 @@ const AuthRouter = (props: Props) => {
         <Route
           exact
           path="/login"
-          render={() => (
-            <LoginComponent {...props} />
-          )}
+          render={() => <LoginComponent {...props} />}
         />
         <Route
           exact
           path="/register"
-          render={() => (
-            <RegisterComponent {...props} />
-          )}
+          render={() => <RegisterComponent {...props} />}
         />
         <Route
           exact
           path="/register/code"
-          render={() => (
-            <RegisterCodeComponent {...props} />
-          )}
+          render={() => <VerificationCodeComponent {...props} />}
+        />
+        <Route
+          exact
+          path="/recover"
+          render={() => <RecoverComponent {...props} />}
+        />
+        <Route
+          exact
+          path="/recover/code"
+          render={() => <VerificationCodeComponent {...props} />}
         />
         <Route path="*" render={() => <Redirect to={"/login"} />} />
       </Switch>

@@ -48,6 +48,7 @@ const RegisterComponent = (props: Props) => {
       size={"large"}
       scrollToFirstError
     >
+      <div style={{height:30}}></div>
       <Form.Item
         name="userName"
         hasFeedback

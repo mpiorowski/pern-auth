@@ -4,18 +4,19 @@ import { SysUser } from "./users-db";
 export interface Token {
   id?: number;
   uuid?: string;
-  data: {
-    code: number;
-    user: SysUser;
-  };
+  data: TokenData;
   type: string;
   email: string;
   expire: string;
   createdAt?: string;
   editedAt?: string;
 }
+interface TokenData {
+  code? : number;
+  user? : SysUser;
+}
 
-export const createAuthToken = (token: Token) => {
+export const createToken = (token: Token) => {
   return knex<Token>("sys_tokens").insert(token).returning("*");
 };
 

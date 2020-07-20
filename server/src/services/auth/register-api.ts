@@ -1,20 +1,20 @@
 import bcrypt from "bcrypt";
 import express from "express";
+import randomNumber from "random-number-csprng";
 import {
   ROLE_USER,
   saltRounds,
   tokenExpirationTime,
 } from "../../config/app-config";
 import { sendEmail } from "../../config/mail-config";
-import { createAuthToken, Token, findTokenByEmail } from "../../db/tokens-db";
+import { registerCodeMessage } from "../../config/mail-messages";
+import { createToken, findTokenByEmail, Token } from "../../db/tokens-db";
 import {
+  createUser,
   getUserByUserEmail,
   getUserByUserName,
   SysUser,
-  createUser,
 } from "../../db/users-db";
-import randomNumber from "random-number-csprng";
-import { registerCodeMessage } from "../../config/mail-messages";
 
 const registerRouter = express.Router();
 registerRouter.use(express.json());
@@ -34,11 +34,19 @@ registerRouter.post("/api/auth/register", async (req, res) => {
     }
     const checkUserName = await getUserByUserName(req.body.userName);
     if (checkUserName.length > 0) {
-      return res.status(404).send({ header: "User name already taken", message: "The given User name is already taken. Please try another.", code: 1 });
+      return res.status(404).send({
+        header: "User name already taken",
+        message: "The given User name is already taken. Please try another.",
+        code: 1,
+      });
     }
     const checkUserEmail = await getUserByUserEmail(req.body.userEmail);
     if (checkUserEmail.length > 0) {
-      return res.status(404).send({ header: "Email already taken", message: "The given Email is already taken. Please try another.", code: 2 });
+      return res.status(404).send({
+        header: "Email already taken",
+        message: "The given Email is already taken. Please try another.",
+        code: 2,
+      });
     }
 
     const pass = await bcrypt.hash(req.body.userPassword, saltRounds);
@@ -62,9 +70,8 @@ registerRouter.post("/api/auth/register", async (req, res) => {
       expire: new Date(Date.now() + tokenExpirationTime * 1000).toISOString(),
     };
 
-    const created: Token[] = await createAuthToken(token);
+    const created: Token[] = await createToken(token);
     if (created.length > 0) {
-
       // send email with register code
       await sendEmail(
         user.userEmail,
@@ -96,9 +103,13 @@ registerRouter.post("/api/auth/register/code", async (req, res) => {
     if (req.body.code != token[0].data.code) {
       return res.status(500).send({
         message: "Wrong verification code",
-        code: 2
+        code: 2,
       });
     }
+    if (!token[0].data.user || !token[0].data.user.userName || !token[0].data.user.userEmail) {
+      return res.status(404).send({ message: "Wrong token" });
+    }
+    // TODO - during register check if there is a token with username or email, so nobody can steal it while registring
     const checkUserName = await getUserByUserName(token[0].data.user.userName);
     if (checkUserName.length > 0) {
       return res.status(404).send({ message: "User name already taken" });
