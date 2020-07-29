@@ -38,6 +38,7 @@ const RecoverComponent = (props: Props) => {
   return (
     <Form
       form={form}
+      layout={"vertical"}
       name="normal_login"
       className="login-form"
       initialValues={{ remember: true }}
@@ -45,30 +46,18 @@ const RecoverComponent = (props: Props) => {
       size={"large"}
       scrollToFirstError
     >
-      <div style={{ height: 30 }}>
-        Please input Your user name or email for recovery code
-      </div>
+      <div style={{ height: 30 }}>Please input Your username or email for recovery code</div>
       <Form.Item
         name="userNameOrEmail"
         hasFeedback
         // validateStatus={""}
         validateTrigger="onBlur"
-        rules={[
-          { required: true, message: "Please input your Username or Email" },
-        ]}
+        rules={[{ required: true, message: "Please input your username or email" }]}
       >
-        <Input
-          prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Username or Email"
-        />
+        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username or email" />
       </Form.Item>
       <Form.Item>
-        <Button
-          type="primary"
-          htmlType="submit"
-          className="login-form-button"
-          loading={loading}
-        >
+        <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
           Continue
         </Button>
         Back to the

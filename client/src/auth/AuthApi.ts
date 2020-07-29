@@ -1,6 +1,6 @@
-import { apiRequest } from "../services/api-request";
 import { Store } from "antd/lib/form/interface";
-import { Register, LogIn } from "../../../interfaces/AuthInterface";
+import { LogIn, Register } from "../../../interfaces/AuthInterface";
+import { apiRequest } from "../services/api-request";
 
 export const serviceLogIn = (data: LogIn) => {
   return apiRequest({
@@ -20,6 +20,14 @@ export const serviceRegister = (data: Register) => {
 export const serviceRegisterCode = (data: Store) => {
   return apiRequest({
     url: "/api/auth/register/code",
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+};
+
+export const serviceRecoverCode = (data: Store) => {
+  return apiRequest({
+    url: "/api/auth/recover/code",
     method: "POST",
     body: JSON.stringify(data),
   });

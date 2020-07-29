@@ -111,7 +111,7 @@ const RegisterComponent = (props: Props) => {
         <Input.Password
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
-          placeholder="Powtórz hasło"
+          placeholder="Repeat password"
         />
       </Form.Item>
       <Form.Item>

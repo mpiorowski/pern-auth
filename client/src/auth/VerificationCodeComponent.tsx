@@ -1,10 +1,10 @@
-import { UserOutlined } from "@ant-design/icons";
+import { KeyOutlined, LockOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { Store } from "antd/lib/form/interface";
 import React, { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { openMessage, openNotification } from "../services/notifications";
-import { serviceRegisterCode } from "./AuthApi";
+import { serviceRecoverCode, serviceRegisterCode } from "./AuthApi";
 import "./AuthStyles.less";
 
 interface Props {
@@ -20,34 +20,49 @@ const VerificationCodeComponent: React.FC<Props> = () => {
 
   const onFinish = (code: Store) => {
     setLoading(true);
-    const userEmail: Record<string, unknown> | null | undefined =
-      history.location.state;
-    if (
-      userEmail !== null &&
-      userEmail !== undefined &&
-      "userEmail" in userEmail
-    ) {
-      const credentials = {
-        userEmail: userEmail["userEmail"],
-        code: code.code,
-      };
-      serviceRegisterCode(credentials)
-        .then((response) => {
-          console.log(response);
-          openMessage("User created", "success");
-          history.push("/login");
-        })
-        .catch((error) => {
-          console.log(error);
-          if (error.code === 2) {
-            openNotification(
-              "Incorrect code",
-              "Submited code is incorrect. Please check again.",
-              "error"
-            );
-            setLoading(false);
-          }
-        });
+    const locationData: Record<string, unknown> | null | undefined = history.location.state;
+
+    if (locationData != null && locationData != undefined) {
+      if (history.location.pathname == "/register/code" && "userEmail" in locationData) {
+        const verificationData = {
+          userEmail: locationData["userEmail"],
+          code: code.code,
+        };
+        serviceRegisterCode(verificationData)
+          .then((response) => {
+            console.log(response);
+            openMessage("User created", "success");
+            history.push("/login");
+          })
+          .catch((error) => {
+            console.log(error);
+            if (error.code === 2) {
+              openNotification(error.header, error.message, "error");
+              setLoading(false);
+            }
+          });
+      } else if (history.location.pathname == "/recover/code" && "userNameOrEmail" in locationData) {
+        const verificationData = {
+          userNameOrEmail: locationData["userNameOrEmail"],
+          code: code.code,
+          userPassword: code.userPassword,
+        };
+        serviceRecoverCode(verificationData)
+          .then((response) => {
+            console.log(response);
+            openMessage("Password changed", "success");
+            history.push("/login");
+          })
+          .catch((error) => {
+            console.log(error);
+            if (error.code === 2) {
+              openNotification(error.header, error.message, "error");
+              setLoading(false);
+            }
+          });
+      }
+    } else {
+      // TODO - error if wrong data on site
     }
   };
 
@@ -66,18 +81,52 @@ const VerificationCodeComponent: React.FC<Props> = () => {
         validateTrigger="onBlur"
         rules={[{ required: true, message: "Please input your verification code" }]}
       >
-        <Input
-          prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Verification code"
-        />
+        <Input prefix={<KeyOutlined className="site-form-item-icon" />} placeholder="Verification code" />
       </Form.Item>
+      {history.location.pathname == "/recover/code" ? (
+        <div>
+          <Form.Item
+            name="userPassword"
+            hasFeedback
+            validateTrigger="onBlur"
+            rules={[{ required: true, message: "Please input your Password" }]}
+          >
+            <Input.Password
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="New password"
+            />
+          </Form.Item>
+          <Form.Item
+            name="repeatUserPassword"
+            dependencies={["userPassword"]}
+            hasFeedback
+            validateTrigger="onBlur"
+            rules={[
+              { required: true, message: "Please input your Password" },
+              ({ getFieldValue }) => ({
+                validator(rule, value) {
+                  if (!value || getFieldValue("userPassword") === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject("The two passwords that you entered do not match!");
+                },
+              }),
+            ]}
+          >
+            <Input.Password
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="Repeat password"
+            />
+          </Form.Item>
+        </div>
+      ) : (
+        ""
+      )}
+
       <Form.Item>
-        <Button
-          type="primary"
-          htmlType="submit"
-          className="login-form-button"
-          loading={loading}
-        >
+        <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
           Continue
         </Button>
         Already have an account?
