@@ -4,7 +4,7 @@ version: '3.6'
 services:
 
   db:
-    container_name: google-map-db
+    container_name: pern-prod-db
     build:
       dockerfile: Dockerfile.db
     restart: always
@@ -18,7 +18,7 @@ services:
     restart: on-failure
 
   server:
-    container_name: google-map-server
+    container_name: pern-prod-server
     build:
       context: ../server
       dockerfile: ../docker/Dockerfile.server.prod
@@ -30,7 +30,7 @@ services:
     command: sh -c "echo 'starting server' && npm run migrate && node dist/index.js"
 
   client:
-    container_name: google-map-client
+    container_name: pern-prod-client
     build:
       context: ../client
       dockerfile: ../docker/Dockerfile.client.prod

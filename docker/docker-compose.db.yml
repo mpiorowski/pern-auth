@@ -10,7 +10,7 @@ services:
       dockerfile: Dockerfile.db
     environment:
       POSTGRES_USER: admin
-      POSTGRES_PASSWORD: zaq1@WSX
+      POSTGRES_PASSWORD: 12345
       POSTGRES_DB: server
       PGDATA: /data/pgdata
     volumes:

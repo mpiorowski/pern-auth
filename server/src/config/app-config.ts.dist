@@ -5,18 +5,17 @@ export const secret =
   Math.random().toString(36).substring(2, 15) +
   Math.random().toString(36).substring(2, 15);
 export const tokenExpirationTime = 86400; // 24 hours
+export const saltRounds = 4;
 
 export const bearer = "Bearer";
 export const ROLE_USER = "ROLE_USER";
 
-export const saltRounds = xx;
-
 export const dbCredential = {
   dev: {
-    port: "port",
-    database: "database",
-    user: "user",
-    password: "password",
+    port: "5444",
+    database: "server",
+    user: "admin",
+    password: "12345",
   },
   prod: {
     port: "port",
