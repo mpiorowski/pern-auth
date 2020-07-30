@@ -28,4 +28,16 @@ cd client && npm i && npm start
 -- username: admin  
 -- password: pass
 
+## Prod deployment
+Whole production deployment is done using docker.
+- copy config file and make neccessary changes to database and email credentials.
+```
+cp server/src/config/app-config.ts.dist server/src/config/app-config.ts
+```
+- run docker-compose
+```
+cd docker
+sh prod.sh
+```
+
 
