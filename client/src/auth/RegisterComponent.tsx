@@ -26,6 +26,7 @@ const RegisterComponent = (props: Props) => {
     };
     serviceRegister(data)
       .then(() => {
+        openNotification("Verification code sent", "A verification code has been sent to the email address provided.", "success");
         history.push({
           pathname: "/register/code",
           state: { userEmail: credentials.userEmail },
@@ -33,6 +34,14 @@ const RegisterComponent = (props: Props) => {
       })
       .catch((error) => {
         openNotification(error.header, error.message, "error");
+        if (error.code === 1) {
+          form.setFields([
+            {
+              name: "userName",
+              errors: ["Username already taken"],
+            },
+          ]);
+        }
         setLoading(false);
         console.error(error);
       });
@@ -48,22 +57,19 @@ const RegisterComponent = (props: Props) => {
       size={"large"}
       scrollToFirstError
     >
-      <div style={{height:30}}></div>
+      <div style={{ height: 30 }}></div>
       <Form.Item
         name="userName"
-        hasFeedback
+        // hasFeedback
         // validateStatus={""}
         validateTrigger="onBlur"
         rules={[{ required: true, message: "Please input your Username" }]}
       >
-        <Input
-          prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Username"
-        />
+        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
       </Form.Item>
       <Form.Item
         name="userEmail"
-        hasFeedback
+        // hasFeedback
         validateTrigger="onBlur"
         // validateStatus={""}
         rules={[
@@ -79,7 +85,7 @@ const RegisterComponent = (props: Props) => {
       </Form.Item>
       <Form.Item
         name="userPassword"
-        hasFeedback
+        // hasFeedback
         validateTrigger="onBlur"
         rules={[{ required: true, message: "Please input your Password" }]}
       >
@@ -92,7 +98,7 @@ const RegisterComponent = (props: Props) => {
       <Form.Item
         name="repeatUserPassword"
         dependencies={["userPassword"]}
-        hasFeedback
+        // hasFeedback
         validateTrigger="onBlur"
         rules={[
           { required: true, message: "Please input your Password" },
@@ -101,9 +107,7 @@ const RegisterComponent = (props: Props) => {
               if (!value || getFieldValue("userPassword") === value) {
                 return Promise.resolve();
               }
-              return Promise.reject(
-                "The two passwords that you entered do not match!"
-              );
+              return Promise.reject("The two passwords that you entered do not match!");
             },
           }),
         ]}
@@ -115,12 +119,7 @@ const RegisterComponent = (props: Props) => {
         />
       </Form.Item>
       <Form.Item>
-        <Button
-          type="primary"
-          htmlType="submit"
-          className="login-form-button"
-          loading={loading}
-        >
+        <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
           Continue
         </Button>
         Already have an account?

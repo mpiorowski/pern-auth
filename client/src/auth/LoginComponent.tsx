@@ -27,11 +27,7 @@ const LoginComponent = (props: Props) => {
           localStorage.setItem(ACCESS_TOKEN, response.authToken);
           props.checkAuth();
         } else {
-          openNotification(
-            "Something went wrong",
-            "Please try again or wait some time.",
-            "error"
-          );
+          openNotification("Something went wrong", "Please try again or wait some time.", "error");
         }
       })
       .catch((error) => {
@@ -48,13 +44,14 @@ const LoginComponent = (props: Props) => {
       initialValues={{ remember: true }}
       onFinish={onFinish}
       size={"large"}
+      layout={"vertical"}
     >
       <div style={{ height: 30 }}></div>
       <Form.Item
         name="userNameOrEmail"
-        rules={[
-          { required: true, message: "Please input your Username or Email" },
-        ]}
+        rules={[{ required: true, message: "Please input your Username or Email" }]}
+        // required={false}
+        // label={<div style={{ fontSize: 16 }}>Username or email</div>}
       >
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
@@ -65,6 +62,8 @@ const LoginComponent = (props: Props) => {
       <Form.Item
         name="userPassword"
         rules={[{ required: true, message: "Please input your Password" }]}
+        // label={<div style={{ fontSize: 16 }}>Password</div>}
+        // required={false}
       >
         <Input
           prefix={<LockOutlined className="site-form-item-icon" />}
@@ -76,12 +75,7 @@ const LoginComponent = (props: Props) => {
         <NavLink to={"/recover"}>Forgot passoword?</NavLink>
       </div>
       <Form.Item>
-        <Button
-          type="primary"
-          htmlType="submit"
-          className="login-form-button"
-          loading={loading}
-        >
+        <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
           Log in
         </Button>
         Or{" "}

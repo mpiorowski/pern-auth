@@ -41,42 +41,51 @@
     // margin-top: 15%;
     max-width: 400px;
     width: 100%;
-  }
 
-  .login-form-button {
-    width: 100%;
-  }
+    // label {
+    //   color: @gray-8;
+    //   height: auto !important;
+    // }
 
-  .login-input {
-    & > .ant-input {
-      height: 40px;
-      font-size: 16px;
+    .login-form-button {
       width: 100%;
     }
-  }
 
-  .login-form-forgot {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    color: @primary-color !important;
-    line-height: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-  }
+    .login-input {
+      & > .ant-input {
+        height: 40px;
+        font-size: 16px;
+        width: 100%;
+      }
+    }
 
-  .ant-form-item-has-success.ant-form-item-has-feedback .ant-form-item-children-icon {
-    color: @primary-color !important;
-  }
+    .login-form-forgot {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      color: @primary-color !important;
+      line-height: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
 
-  .ant-form-item-has-error.ant-form-item-has-feedback .ant-form-item-children-icon {
-    color: #9f4142 !important;
-  }
+    .ant-form-item-has-success.ant-form-item-has-feedback .ant-form-item-children-icon {
+      color: @primary-color !important;
+    }
 
-  // .ant-form-item-children-icon {
-  //   color: @primary-color !important;
-  // }
-  // .ant-form-item-has-error {
-  //   color: red!;
-  // }
+    .ant-form-item-has-error.ant-form-item-has-feedback .ant-form-item-children-icon {
+      color: #9f4142 !important;
+    }
+
+    // .ant-form-item-children-icon {
+    //   color: @primary-color !important;
+    // }
+    // .ant-form-item-has-error {
+    //   color: red!;
+    // }
+
+    .ant-input::placeholder {
+      color: @gray-8;
+    }
+  }
 }

@@ -23,6 +23,7 @@ const RecoverComponent = (props: Props) => {
     };
     serviceRecover(data)
       .then(() => {
+        openNotification("Verification code sent", "A verification code has been sent to the email address.", "success");
         history.push({
           pathname: "/recover/code",
           state: { userNameOrEmail: formData.userNameOrEmail },
@@ -49,7 +50,7 @@ const RecoverComponent = (props: Props) => {
       <div style={{ height: 30 }}>Please input Your username or email for recovery code</div>
       <Form.Item
         name="userNameOrEmail"
-        hasFeedback
+        // hasFeedback
         // validateStatus={""}
         validateTrigger="onBlur"
         rules={[{ required: true, message: "Please input your username or email" }]}

@@ -22,8 +22,8 @@ const VerificationCodeComponent: React.FC<Props> = () => {
     setLoading(true);
     const locationData: Record<string, unknown> | null | undefined = history.location.state;
 
-    if (locationData != null && locationData != undefined) {
-      if (history.location.pathname == "/register/code" && "userEmail" in locationData) {
+    if (locationData !== null && locationData !== undefined) {
+      if (history.location.pathname === "/register/code" && "userEmail" in locationData) {
         const verificationData = {
           userEmail: locationData["userEmail"],
           code: code.code,
@@ -41,7 +41,7 @@ const VerificationCodeComponent: React.FC<Props> = () => {
               setLoading(false);
             }
           });
-      } else if (history.location.pathname == "/recover/code" && "userNameOrEmail" in locationData) {
+      } else if (history.location.pathname === "/recover/code" && "userNameOrEmail" in locationData) {
         const verificationData = {
           userNameOrEmail: locationData["userNameOrEmail"],
           code: code.code,
@@ -83,7 +83,7 @@ const VerificationCodeComponent: React.FC<Props> = () => {
       >
         <Input prefix={<KeyOutlined className="site-form-item-icon" />} placeholder="Verification code" />
       </Form.Item>
-      {history.location.pathname == "/recover/code" ? (
+      {history.location.pathname === "/recover/code" ? (
         <div>
           <Form.Item
             name="userPassword"

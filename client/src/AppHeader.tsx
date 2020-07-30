@@ -46,12 +46,7 @@ const AppHeader: React.FC<Props> = (props: Props) => {
         <LeftHeaderMenu />
       </div>
       <div className="header-menu right">
-        <Dropdown
-          overlay={RightHeaderMenu}
-          placement="bottomRight"
-          trigger={["click"]}
-          className="header-dropdown"
-        >
+        <Dropdown overlay={RightHeaderMenu} placement="bottomRight" trigger={["click"]} className="header-dropdown">
           <div className="header-dropdown">
             <img src={avatar} alt="" className="avatar" />
           </div>

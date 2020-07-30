@@ -8,7 +8,7 @@ export const openNotification = (
   notification[type]({
     message: message,
     description: description,
-    duration: 4,
+    duration: 5,
     placement: "topRight",
   });
 };
@@ -19,6 +19,6 @@ export const openMessage = (
 ): void => {
   message[type]({
     content: description,
-    duration: 2
+    duration: 3
   });
 };
