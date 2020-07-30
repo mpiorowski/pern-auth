@@ -1,6 +1,6 @@
 import { Store } from "antd/lib/form/interface";
-import { LogIn, Register } from "../../../interfaces/AuthInterface";
 import { apiRequest } from "../services/api-request";
+import { LogIn, Register } from "./AuthInterfaces";
 
 export const serviceLogIn = (data: LogIn) => {
   return apiRequest({

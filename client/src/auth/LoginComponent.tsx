@@ -4,10 +4,10 @@ import { Store } from "antd/lib/form/interface";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ACCESS_TOKEN } from "../config/app-parameters";
-import { serviceLogIn } from "./AuthApi";
-import "./AuthStyles.less";
 import { openNotification } from "../services/notifications";
-import { LogIn } from "../../../interfaces/AuthInterface";
+import { serviceLogIn } from "./AuthApi";
+import { LogIn } from "./AuthInterfaces";
+import "./AuthStyles.less";
 
 interface Props {
   checkAuth: () => void;
@@ -65,11 +65,7 @@ const LoginComponent = (props: Props) => {
         // label={<div style={{ fontSize: 16 }}>Password</div>}
         // required={false}
       >
-        <Input
-          prefix={<LockOutlined className="site-form-item-icon" />}
-          type="password"
-          placeholder="Password"
-        />
+        <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password" />
       </Form.Item>
       <div className="login-form-forgot">
         <NavLink to={"/recover"}>Forgot passoword?</NavLink>

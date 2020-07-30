@@ -20,7 +20,7 @@ const connection: { [k: string]: any } = {
   production: {
     client: "pg",
     connection: {
-      host: "localhost",
+      host: "db",
       port: dbCredential.prod.port,
       database: dbCredential.prod.database,
       user: dbCredential.prod.user,

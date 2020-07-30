@@ -1,5 +1,6 @@
 # config
 src/config/app-config.ts
+build
 
 # Logs
 logs

@@ -5,8 +5,8 @@
   "main": "src/app.ts",
   "scripts": {
     "start": "knex migrate:latest && knex seed:run && nodemon src/app.ts",
-    "prod": "knex migrate:latest && tsc node src/app.ts",
-    "ts": "tsc src/app.ts",
+    "tsc": "tsc",
+    "prod": "knex migrate:latest && node build/src/app.js",
     "migrate": "knex migrate:make",
     "seed": "knex seed:make"
   },

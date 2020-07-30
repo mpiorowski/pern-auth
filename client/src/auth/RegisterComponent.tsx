@@ -3,10 +3,10 @@ import { Button, Form, Input } from "antd";
 import { Store } from "antd/lib/form/interface";
 import React, { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
-import { Register } from "../../../interfaces/AuthInterface";
-import { serviceRegister } from "./AuthApi";
-import "./AuthStyles.less";
 import { openNotification } from "../services/notifications";
+import { serviceRegister } from "./AuthApi";
+import { Register } from "./AuthInterfaces";
+import "./AuthStyles.less";
 
 interface Props {
   checkAuth: () => void;
@@ -26,7 +26,11 @@ const RegisterComponent = (props: Props) => {
     };
     serviceRegister(data)
       .then(() => {
-        openNotification("Verification code sent", "A verification code has been sent to the email address provided.", "success");
+        openNotification(
+          "Verification code sent",
+          "A verification code has been sent to the email address provided.",
+          "success"
+        );
         history.push({
           pathname: "/register/code",
           state: { userEmail: credentials.userEmail },
