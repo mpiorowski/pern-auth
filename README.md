@@ -1,6 +1,10 @@
 # pern-auth
 PERN stack app with authorization using JWT tokens
 
+- Fully working login solution using tokens
+- New user registry via email with secuirty code
+- Reset password via email with security code
+
 ## Dependencies
 npm, docker, docker-compose
 
